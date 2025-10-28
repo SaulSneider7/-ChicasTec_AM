@@ -1,17 +1,24 @@
-import app from "./firebase";
-import AddUser from "./components/addUser";
+import './App.css'
+import app from './firebase'
+import AddUser from './components/AddUser'
+import UserList from './components/UserList'
 
 function App() {
-  console.log(app); // 👈 Muestra tu app de Firebase en la consola
-
+  console.log(app);
+  
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600 mb-6">
-        Firestore + React 🔥
-      </h1>
+    <>
+      <div>
+        <h1>Mi página web con React y Firebase</h1>
+      </div>
+
       <AddUser />
-    </div>
-  );
+
+      <hr />
+
+      <UserList />
+    </>
+  )
 }
 
-export default App;
+export default App
