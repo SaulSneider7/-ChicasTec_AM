@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore"; //Agregamos
+import { collection, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore"; //Agregamos
 
 function UserList() {
   const [usuarios, setUsuarios] = useState([]);
@@ -41,6 +41,21 @@ function UserList() {
     setEditandoId(null); // cerramos el modo de edicion
   };
 
+
+  //Funcion para eliminar
+  const eliminarUsuario = async (id) => {
+    const confirmar = window.confirm("¿Deseas eliminar este usuario?");
+    if (confirmar) {
+      try {
+        await deleteDoc(doc(db, "usuarios", id));
+        alert("Usuario eliminado correctamente.");
+      } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+        alert("No se pudo eliminar el usuario.");
+      }
+    }
+  };
+
   return (
     <div>
       <h2>Lista de Usuarios</h2>
@@ -71,6 +86,7 @@ function UserList() {
                   <strong>Nombre:</strong> {usuario.nombre} - 
                   <strong>Edad:</strong> {usuario.edad}
                   <button onClick={() => editarUsuario(usuario)}>Editar</button> 
+                  <button onClick={() => eliminarUsuario(usuario.id)}>Eliminar</button>
                 </>
               )}
             </li>
